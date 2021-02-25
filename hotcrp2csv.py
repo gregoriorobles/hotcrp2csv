@@ -40,6 +40,9 @@ PAGE_LIMIT = "4+1"
 #    "Short (4 pages plus 1 additional page of references)": "4+1"
 #}
 
+# If you append multiple tracks into a single CSV output file,
+# only the first track should have a header. Else, put HEADER to False
+HEADER = True
 
 ####################################################################
 # Main program
@@ -61,7 +64,8 @@ if len(sys.argv) != 2:
 
 with open(sys.argv[1]) as json_file:
     data = json.load(json_file)
-    print('"', '","'.join(columns), '"', sep="")
+    if HEADER:
+        print('"', '","'.join(columns), '"', sep="")
     for pub in data:
         contact_authors = [contact["email"] for contact in pub["contacts"]]
         for author in pub["authors"]:

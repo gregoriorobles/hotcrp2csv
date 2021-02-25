@@ -4,18 +4,29 @@ Python script to transform the list of accepted papers from HotCRP's JSON file i
 
 ## Configuration
 
-Edit hotcrp2csv, and modify the following three variables, as in the example below:
+Edit hotcrp2csv, and modify the following variables, as in the example below:
 
 ```
 ACRONYM = "MSR"  # Acronym of the conference
-TRACK = "Technical"  # Track (leave empty if single track)
+TRACK = "Challenge"  # Track (leave empty if single track)
 
-# Page limit depending on the type of papers. 
-# Syntax --> Hotcrp type: Number of pages
-PAGE_LIMIT = {
-    "Full (10 pages plus 2 additional pages of references)": "10+2",
-    "Short (4 pages plus 1 additional page of references)": "4+1"
-}
+## Page limit depending on the type of papers. 
+## There are two possibilities:
+## a) Directly a number (in string format) when there is only one type
+
+PAGE_LIMIT = "4+1"
+
+## b) A dictionary with all the types of papers:
+## Syntax --> Type: Number of pages
+
+#PAGE_LIMIT = {
+#    "Full (10 pages plus 2 additional pages of references)": "10+2",
+#    "Short (4 pages plus 1 additional page of references)": "4+1"
+#}
+
+# If you append multiple tracks into a single CSV output file,
+# only the first track should have a header. Else, put HEADER to False
+HEADER = True
 ```
 
 
@@ -47,18 +58,33 @@ This will display the list of accepted papers. Then, at the bottom of the page, 
 
 Imagine you are running a conference with two tracks (Technical Papers and the Data Showcase) and have two JSON files as exported from HotCRP: msr2021-technical.json and msr2021-data.json.
 
-Edit hotcrp2csv.py, and modify the following three variables:
+Let's first transform the Technical Papers. We have two types of files (``Full (10 pages plus 2 additional pages of references)`` and ``Short (4 pages plus 1 additional page of references)``) which correspond to ``10+2`` and ``4+1`` pages respectively, so we use option b) for the ``PAGE_LIMIT`` variable.
+
+As it is the first transformation, we want ``HEADER`` to be ``True`` as to have the labels of the columns in the first line.
+
+Thus, open hotcrp2csv.py and modify the configuration variables as below:
 
 ```
 ACRONYM = "MSR"  # Acronym of the conference
 TRACK = "Technical"  # Track (leave empty if single track)
 
-# Page limit depending on the type of papers. 
-# Syntax --> Hotcrp type: Number of pages
+## Page limit depending on the type of papers. 
+## There are two possibilities:
+## a) Directly a number (in string format) when there is only one type
+
+#PAGE_LIMIT = "4+1"
+
+## b) A dictionary with all the types of papers:
+## Syntax --> Type: Number of pages
+
 PAGE_LIMIT = {
     "Full (10 pages plus 2 additional pages of references)": "10+2",
     "Short (4 pages plus 1 additional page of references)": "4+1"
 }
+
+# If you append multiple tracks into a single CSV output file,
+# only the first track should have a header. Else, put HEADER to False
+HEADER = True
 ```
 
 Then run:
@@ -68,18 +94,31 @@ hotcrp2csv.py msr2021-technical.json > msr2021.csv
 ```
 
 
-Let's then add the papers from the Data Showcase Track.
-Edit again hotcrp2csv.py, and modify the following three variables:
+Let's then add the papers from the Data Showcase Track, where there is only one type of papers (all 4+1 pages).
+Note that we set the ``HEADER`` constant to ``False`` as we want to append the output to the same CSV file as used before.
+Thus, edit hotcrp2csv.py, and modify the variables accordingly:
 
 ```
 ACRONYM = "MSR"  # Acronym of the conference
 TRACK = "Data"  # Track (leave empty if single track)
 
-# Page limit depending on the type of papers. 
-# Syntax --> Hotcrp type: Number of pages
-PAGE_LIMIT = {
-    "Data": "4+1"
-}
+## Page limit depending on the type of papers. 
+## There are two possibilities:
+## a) Directly a number (in string format) when there is only one type
+
+PAGE_LIMIT = "4+1"
+
+## b) A dictionary with all the types of papers:
+## Syntax --> Type: Number of pages
+
+#PAGE_LIMIT = {
+#    "Full (10 pages plus 2 additional pages of references)": "10+2",
+#    "Short (4 pages plus 1 additional page of references)": "4+1"
+#}
+
+# If you append multiple tracks into a single CSV output file,
+# only the first track should have a header. Else, put HEADER to False
+HEADER = False
 ```
 
 And then run:
