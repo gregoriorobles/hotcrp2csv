@@ -1,5 +1,5 @@
 # hotcrp2csv
-Python script to transform the list of accepted papers from HotCRP's JSON file into IEEE CS spreadsheet format
+Python script to transform the list of accepted papers from HotCRP's JSON file into IEEE CS spreadsheet format.
 
 
 ## Configuration
@@ -21,13 +21,26 @@ PAGE_LIMIT = {
 
 ## Usage
 
+After configuring hotcrop2csv.py for your conference, you are ready to run it.
+
 ```
-usage: hotcrp2csv.py input.json > output.csv
+Usage: hotcrp2csv.py input.json > output.csv
 
 input.json is the list of accepted papers as exported in JSON from HotCRP
 
 output.csv is the output file in CSV format
 ```
+
+
+## Exporting JSON from HotCRP
+
+If you want to export the list of accepted papers from HotCRP in JSON format, you first have to choose all accepted papers from the drop-down menu and then push ``Search``, as in following figure:
+
+![Obtain the list of accepted papers](https://raw.githubusercontent.com/gregoriorobles/hotcrp2csv/main/accepted.png)
+
+This will display the list of accepted papers. Then, at the bottom of the page, click on ``Download`` and in the drop-down menu choose ``JSON`` before pressing the ``Go!`` button as shown in the next figure:
+
+![Download the list of papers in JSON format](https://raw.githubusercontent.com/gregoriorobles/hotcrp2csv/main/export.png)
 
 
 ## Conferences with several tracks
@@ -76,17 +89,6 @@ hotcrp2csv.py msr2021-data.json >> msr2021.csv
 ```
 
 Note ``>>`` that appends to the old CSV (with the Technical Papers) the Data Showcase papers, so that you will have a unique CSV file.
-
-
-## Exporting from HotCRP
-
-If you want to export the list of accepted papers from HotCRP in JSON format, you first have to choose all accepte papers, as in following figure:
-
-![Obtain the list of accepted papers](https://raw.githubusercontent.com/gregoriorobles/hotcrp2csv/main/accepted.png)
-
-Then, at the bottom of the page, click on ``Download`` and in the drop-down menu choose ``JSON`` before pressing the ``Go!`` button as shown in the next figure:
-
-![Download the list of papers in JSON format](https://raw.githubusercontent.com/gregoriorobles/hotcrp2csv/main/export.png)
 
 
 ## License
