@@ -82,11 +82,11 @@ Note ``>>`` that appends to the old CSV (with the Technical Papers) the Data Sho
 
 If you want to export the list of accepted papers from HotCRP in JSON format, you first have to choose all accepte papers, as in following figure:
 
-![Obtain the list of accepted papers](accepted.jpg)
+![Obtain the list of accepted papers](https://raw.githubusercontent.com/gregoriorobles/hotcrp2csv/main/accepted.png)
 
 Then, at the bottom of the page, click on ``Download`` and in the drop-down menu choose ``JSON`` before pressing the ``Go!`` button as shown in the next figure:
 
-![Download the list of papers in JSON format](export.jpg)
+![Download the list of papers in JSON format](https://raw.githubusercontent.com/gregoriorobles/hotcrp2csv/main/export.png)
 
 
 ## License
