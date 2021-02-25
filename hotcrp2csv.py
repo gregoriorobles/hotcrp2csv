@@ -24,14 +24,22 @@ import sys
 ####################################################################
 
 ACRONYM = "MSR"  # Acronym of the conference
-TRACK = "Technical"  # Track (leave empty if single track)
+TRACK = "Challenge"  # Track (leave empty if single track)
 
-# Page limit depending on the type of papers. 
-# Syntax --> Hotcrp type: Number of pages
-PAGE_LIMIT = {
-    "Full (10 pages plus 2 additional pages of references)": "10+2",
-    "Short (4 pages plus 1 additional page of references)": "4+1"
-}
+## Page limit depending on the type of papers. 
+## There are two possibilities:
+## a) Directly a number (in string format) when there is only one type
+
+PAGE_LIMIT = "4+1"
+
+## b) A dictionary with all the types of papers:
+## Syntax --> Type: Number of pages
+
+#PAGE_LIMIT = {
+#    "Full (10 pages plus 2 additional pages of references)": "10+2",
+#    "Short (4 pages plus 1 additional page of references)": "4+1"
+#}
+
 
 ####################################################################
 # Main program
@@ -57,10 +65,16 @@ with open(sys.argv[1]) as json_file:
     for pub in data:
         contact_authors = [contact["email"] for contact in pub["contacts"]]
         for author in pub["authors"]:
-            contact = 'Y' if author["email"] in contact_authors else 'N'
+            contact = 'Y' if author.get("email", '') in contact_authors else 'N'
             affiliation = author.get('affiliation', '')
             if TRACK:
                 paper_id = '"' + ACRONYM + "-" + TRACK + "-" + str(pub["pid"])
             else:
                 paper_id = '"' + ACRONYM + "-" + str(pub["pid"])
-            print(paper_id, pub["title"], author["first"], author["last"], author["email"], affiliation, PAGE_LIMIT[pub["length_paper"]], contact + '"', sep='","')
+            if isinstance(PAGE_LIMIT, str):
+                length = PAGE_LIMIT
+            elif isinstance(PAGE_LIMIT, dict):
+                length = PAGE_LIMIT[pub["length_paper"]]
+            else:
+                print("Error: PAGE_LIMIT configuration constant not correctly set.", "Found:", PAGE_LIMIT)
+            print(paper_id, pub["title"], author["first"], author["last"], author.get("email", ""), affiliation, length, contact + '"', sep='","')
